@@ -3,6 +3,7 @@ package com.appempleos.busquedaempleos.controller;
 import com.appempleos.busquedaempleos.dto.CategoriaDTO;
 import com.appempleos.busquedaempleos.model.Categoria;
 import com.appempleos.busquedaempleos.service.CategoriaService;
+import com.appempleos.busquedaempleos.util.ServiceResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,11 +33,19 @@ public class CategoriaController {
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> delete(@PathVariable("id") Long id){
         log.info("Se recibe id: ", id);
-//        try {
-//
-//        }catch (Exception ex){
-//
-//        }
-        return null;
+        try {
+            ServiceResult response = categoriaService.delete(id);
+            if(response.VALIDATION_BLOKING.isEmpty()){
+                if(response.VALIDATION_MILD.isEmpty()){
+                    return new ResponseEntity<>(response.getResponse().get("responseData"), HttpStatus.OK);
+                }else{
+                    return new ResponseEntity<>(response.getResponse(), HttpStatus.PARTIAL_CONTENT);
+                }
+            }else {
+                return new ResponseEntity<>(response.getResponse(), HttpStatus.CONFLICT);
+            }
+        }catch (Exception ex){
+            return new ResponseEntity<>("Exception error - delete "+ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
