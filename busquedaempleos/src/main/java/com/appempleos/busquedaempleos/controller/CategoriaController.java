@@ -25,7 +25,18 @@ public class CategoriaController {
             final CategoriaDTO categoriaDTO1 = categoriaService.save(categoriaDTO);
             return new ResponseEntity<>(categoriaDTO1, HttpStatus.OK);
         }catch (Exception ex){
-            return new ResponseEntity<>("Exception error - postCategoria "+ex.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Exception error - postCategoria "+ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Object> delete(@PathVariable("id") Long id){
+        log.info("Se recibe id: ", id);
+//        try {
+//
+//        }catch (Exception ex){
+//
+//        }
+        return null;
     }
 }

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class CategoriaService {
     @Autowired
     public CategoriaRepository categoriaRepository;
-    @Autowired
+
     private ModelMapper modelMapper;
     public CategoriaDTO save(CategoriaDTO categoriaDTO){
         categoriaRepository.save(convertoToEntity(categoriaDTO));

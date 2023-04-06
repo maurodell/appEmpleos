@@ -12,7 +12,6 @@ public class PerfilService {
 
     @Autowired
     public PerfilRespository perfilRespository;
-    @Autowired
     private ModelMapper modelMapper;
 
     public PerfilDTO save(PerfilDTO perfilDTO){
